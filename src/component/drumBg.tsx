@@ -1,21 +1,30 @@
 import React from 'react';
 import { Box } from "@mui/material";
 
-function DrumBackground( props: {   
+interface DrumBackgroundProps {
     header?: string, 
     colorTheme?: string,
     height?: string,
     width?: string,
     borderRadius?: string, 
     children?: React.ReactNode,
-}) {
-    const color = props.colorTheme || "#1976d2";
+}
+
+const DrumBackground: React.FC<DrumBackgroundProps> = ({   
+    header, 
+    colorTheme = "#1976d2",
+    height = "100%",
+    width = "100%",
+    borderRadius = "0px", 
+    children,
+}) => {
+    const color = colorTheme;
     return (
         <Box
             sx={{
-                width: props.width || "100%",
-                height: props.height || "100%",
-                borderRadius: props.borderRadius,
+                width: width,
+                height: height,
+                borderRadius: borderRadius,
                 backgroundColor: color,
                 ":hover": {
                     backgroundColor: color,
@@ -23,7 +32,7 @@ function DrumBackground( props: {
                 cursor: "default",                
             }}
         >
-            {props.children}
+            {children}
         </Box>
     )
 }

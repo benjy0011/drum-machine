@@ -1,20 +1,22 @@
 import React from 'react';
 import './App.scss';
 import DrumBackground from './component/drumBg.tsx';
-import { Button, Grid2, Link, Typography } from '@mui/material';
+import { Button, Grid2, Link, Typography, Switch } from '@mui/material';
 import ButtonGrid from './component/buttonsGrid.tsx';
+import SoundController from './component/soundController.tsx';
+
+
+const dummy = (): void => {
+  console.log("one");
+}
+
+const dummy2 = (): void => {
+  console.log("two");
+}
 
 const buttons = [
-  <Button key="1" 
-    onClick={() => {console.log("Button 1")}}
-  >
-    1
-  </Button>,
-  <Button key="2" 
-    onClick={() => {console.log("Button 2")}}
-  >
-    2
-  </Button>,
+  {name: "one", onPressed: dummy},
+  {name: "two", onPressed: dummy2},
 ];
 
 function App() {
@@ -23,10 +25,8 @@ function App() {
         <Grid2 
         size={{xs: 12}}
           sx={{
-            width: {xs:"90vw", sm: "600px", md: "700px"},
-            height: {xs:"100vw", sm: "350px", md: "400px"},
+            margin: "20px",
             display: "flex",
-            flexDirection: "column",
           }}
         >
           <DrumBackground
@@ -42,8 +42,12 @@ function App() {
                 </Typography>
               </Grid2>
 
-              <Grid2 size={8}>
-                <ButtonGrid gridSize={3} buttons={buttons} ></ButtonGrid>
+              <Grid2 size={{ md: 7, sm: 9, xs: 12 }}>
+                <ButtonGrid gridSize={3} buttons={buttons} h={"90px"} gap={3} ></ButtonGrid>
+              </Grid2>
+
+              <Grid2 className="sound-controller" size={{ md: 5, sm: 3, xs: 12 }}>
+                  <SoundController></SoundController>
               </Grid2>
             </Grid2>
 

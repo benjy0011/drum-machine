@@ -14,9 +14,31 @@
   box-sizing: border-box;
 
   * {
-    // border: green 1px solid;
     margin: 0;
     padding: 0;
     width: 100%;
+    box-sizing: border-box;
+  }
+
+  .sound-controller {
+    * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .switch {
+    * {
+      display: inline-flex;
+      justify-content: flex-start;
+      align-items: center;
+      border: green solid 1px;
+    }
+  }
+
+  .switch-icon {
+    position: relative;
+    top: -2.5px;
   }
 }
