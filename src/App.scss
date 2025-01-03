@@ -1,0 +1,22 @@
+
+
+.App {
+  background-color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+
+  * {
+    // border: green 1px solid;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+}
