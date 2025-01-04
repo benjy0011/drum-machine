@@ -18,9 +18,12 @@
     padding: 0;
     width: 100%;
     box-sizing: border-box;
+    // border: green solid 1px;
   }
 
   .sound-controller {
+    padding: 15px 10px;
+
     * {
       display: flex;
       justify-content: center;
@@ -28,12 +31,15 @@
     }
   }
 
+  .volume-slider {
+    margin: 15px auto;
+  }
+
   .switch {
     * {
       display: inline-flex;
       justify-content: flex-start;
       align-items: center;
-      border: green solid 1px;
     }
   }
 
@@ -42,3 +48,4 @@
     top: -2.5px;
   }
 }
+
