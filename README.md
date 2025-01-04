@@ -1,3 +1,3 @@
-# Drum Machine
+# drum-machine
 
-This is a drum machine web app created for freeCodeCamp Front End Library certification.
+This is a Drum Machine web app developed for freeCodeCamp front end library certification.
