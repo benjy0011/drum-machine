@@ -12,7 +12,6 @@ function App() {
   const [displayText, setDisplayText] = useState<string>("");
   const [volume, setVolume] = useState<number>(50);
   const [changeTheme, setChangeTheme] = useState<boolean>(false);
-  const [key, setKey] = useState<string | undefined>();
   const [buttons, setButtons] = useState(() => 
     TYPE_OF_BUTTONS_1.map(button => ({
       name: button.name,
@@ -82,7 +81,6 @@ function App() {
   }
 
   const handleKeyDown = (event: KeyboardEvent): void => {
-    setKey(event.key);
     const buttonPressed = buttons.find((button) => button.trigger.toLowerCase() === event.key.toLowerCase());
 
     if (buttonPressed && powerOnRef.current) {
