@@ -11,7 +11,6 @@ interface DrumBackgroundProps {
 }
 
 const DrumBackground: React.FC<DrumBackgroundProps> = ({   
-    header, 
     colorTheme = "#1976d2",
     height = "100%",
     width = "100%",

@@ -12,7 +12,7 @@ interface VolumeControlSliderProps {
 
 const VolumeControlSlider: React.FC<VolumeControlSliderProps> = ({ value, onValueChange }) => {
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleChange = (_event: Event, newValue: number | number[]) => {
     onValueChange(newValue as number);
   };
 

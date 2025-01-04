@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.scss';
 import DrumBackground from './component/drumBg.tsx';
 import { Grid2, Link, Typography } from '@mui/material';
@@ -75,7 +75,7 @@ function App() {
   }, [powerOn, volume]);
 
   const playAudio = (audioURL: string, volume: number = 0.5): void => {
-    let aud = new Audio(audioURL);
+    const aud = new Audio(audioURL);
     aud.volume = volume / 100;
     aud.play();
   }
