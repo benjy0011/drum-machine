@@ -1,7 +1,7 @@
 import { Button, Grid2 } from "@mui/material";
 import React from "react";
 
-interface Button {
+interface Buttons {
     name: string;
     triggerByKey: boolean;
     onPressed: () => void;
@@ -12,7 +12,7 @@ interface ButtonGridProps {
     w?: string;
     h?: string;
     gap?: number;
-    buttons: Button[]; 
+    buttons: Buttons[]; 
     colorTheme?: "primary" | "secondary" | "success" | "error" | "info" | "warning" | "inherit";
 }
 

@@ -1,4 +1,4 @@
-import { Grid2, Typography } from "@mui/material";
+import { Grid2 } from "@mui/material";
 import React from "react";
 import OnOffSwitch from "./onOffSwitch.tsx";
 import ChangeThemeSwitch from "./changeThemeSwitch.tsx";
