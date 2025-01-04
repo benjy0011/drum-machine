@@ -21,8 +21,31 @@
     // border: green solid 1px;
   }
 
+  .header {
+    margin: 0;
+    padding: 5px 15px 5px 0;
+  }
+
+  #drum-machine {
+    width: min(900px, 90vw);
+    padding-bottom: 15px;
+
+    @media (width < 600px) {
+      padding-bottom: 0px;
+    }
+  }
+
+  .buttons-pad {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .screen-and-volume {
+    padding-top: 10px;
+  }
+
   .sound-controller {
-    padding: 15px 10px;
+    padding: 15px 10px 0px 10px;
 
     * {
       display: flex;

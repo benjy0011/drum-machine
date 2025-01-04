@@ -7,7 +7,7 @@ interface DisplayScreenProps {
 
 const DisplayScreen: React.FC<DisplayScreenProps> = ({ value }) => {
     return (
-        <Box component="section" sx={{ p: 2, border: '1px dashed grey', width:"250px", padding:"1px", height: "40px", fontSize: "20px" }}>
+        <Box component="div" sx={{ p: 2, border: '1px dashed grey', width:"250px", padding:"1px", height: "40px", fontSize: "20px" }}>
             {value}
         </Box>
     );

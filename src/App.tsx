@@ -4,6 +4,7 @@ import DrumBackground from './component/drumBg.tsx';
 import { Grid2, Link, Typography } from '@mui/material';
 import ButtonGrid from './component/buttonsGrid.tsx';
 import SoundController from './component/soundController.tsx';
+import TYPE_OF_BUTTONS from './component/TYPE_OF_BUTTONS.ts';
 
 function App() {
   const [powerOn, setPowerOn] = useState<boolean>(false);
@@ -13,55 +14,43 @@ function App() {
 
   const handlePowerChange = (newValue: boolean) => {
     setPowerOn(newValue);
-    console.log(`power: ${newValue ? "ON" : "OFF"}`)
   };
 
   const handleDisplayChange = (newValue: string) => {
     setDisplayText(newValue);
-    console.log(`Display: ${newValue}`)
   };
 
   const handleVolumeChange = (newValue: number) => {
     setVolume(newValue);
-    console.log(`volume: ${newValue}`)
   };
 
   const handleThemeChange = (newValue: boolean) => {
     setChangeTheme(newValue);
-    console.log(`theme: ${newValue ? "Theme 2" : "Theme 1"}`)
   };
 
   useEffect(() => {
     handleDisplayChange(`Power: ${powerOn ? "ON" : "OFF"}`);
   }, [powerOn])
 
-  useEffect(() => {
-    handleDisplayChange(`Volume: ${volume}`);
-  }, [volume])
-
-  useEffect(() => {
-    handleDisplayChange(`Theme: ${changeTheme ? "2" : "1"}`);
-  }, [changeTheme])
-
   // test components
-  const dummy = (): void => {
-    handleDisplayChange("one");
+  const playAudio = (audioURL: string, volume: number = 0.5): void => {
+    let aud = new Audio(audioURL);
+    aud.volume = volume / 100;
+    aud.play();
   }
   
-  const dummy2 = (): void => {
-    handleDisplayChange("two");
-  }
-  
-  const dummy3 = (): void => {
-    handleDisplayChange("three");
-  }
-  
-  const buttons = [
-    {name: "one", onPressed: dummy},
-    {name: "two", onPressed: dummy2},
-    {name: "three", onPressed: dummy3},
-  ];
-
+  const buttons: { name: string; onPressed: () => void }[] = [];
+  TYPE_OF_BUTTONS.forEach(button => {
+    buttons.push({
+        name: button.name,
+        onPressed: () => {
+          if (powerOn) {
+            playAudio(button.audioURL, volume);
+            handleDisplayChange(button.display);
+          }
+        },
+    });
+  });
 
   return (
     <div className="App">
@@ -77,8 +66,8 @@ function App() {
             colorTheme="#444444"
           >
             <Grid2 id="drum-machine" container spacing={0}>
-              <Grid2 size={12} textAlign={"right"} sx={{ margin: "10px" }}>
-                <Typography variant="body1" color="white" >
+              <Grid2 className="header" size={12} textAlign={"right"}>
+                <Typography variant="body2" color="white" >
                   By: <Link href="https://github.com/benjy0011" color="inherit" target="_blank" rel="noopener noreferrer" sx={{ ":hover": {
                     color: "blueviolet"
                   } }}>{'Benjy'}</Link>
@@ -86,7 +75,7 @@ function App() {
               </Grid2>
 
               <Grid2 size={{ md: 7, sm: 7, xs: 12 }}>
-                <ButtonGrid gridSize={3} buttons={buttons} h={"90px"} gap={3} ></ButtonGrid>
+                <ButtonGrid gridSize={3} buttons={buttons} h={"90px"} gap={1} colorTheme={changeTheme ? "secondary" : "info" } ></ButtonGrid>
               </Grid2>
 
               <Grid2 className="sound-controller" size={{ md: 5, sm: 5, xs: 12 }}>

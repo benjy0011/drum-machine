@@ -25,7 +25,7 @@ const SoundController: React.FC<SoundControlProps> = ({ powerOn, onPowerToggle, 
                 <OnOffSwitch value={powerOn} onToggle={onPowerToggle} />
             </Grid2>
 
-            <Grid2 container spacing={2} size={{ md: 12, sm: 12, xs: 6 }}>
+            <Grid2 container spacing={2} size={{ md: 12, sm: 12, xs: 6 }} className="screen-and-volume">
                 <Grid2 size={12}>
                     <DisplayScreen value={displayText} />
                 </Grid2>

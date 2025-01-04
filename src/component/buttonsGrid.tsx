@@ -12,14 +12,15 @@ interface ButtonGridProps {
     h?: string;
     gap?: number;
     buttons: Button[]; 
+    colorTheme?: "primary" | "secondary" | "success" | "error" | "info" | "warning" | "inherit";
 }
 
 const btnVariant = "contained";
 
-const ButtonGrid: React.FC<ButtonGridProps> = ({ gridSize, buttons, gap = 2, w = "100%" , h = "100%" }) => {
+const ButtonGrid: React.FC<ButtonGridProps> = ({ gridSize, buttons, gap = 2, w = "100%" , h = "100%", colorTheme = "primary", }) => {
+
     const size = gridSize * gridSize;
     
-
     return (
         <Grid2
             container
@@ -30,7 +31,7 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ gridSize, buttons, gap = 2, w =
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                padding: "20px"
+                padding: "0px 30px"
             }}
         >   
             {Array.from({ length: size }).map((_, index) => (
@@ -45,8 +46,8 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ gridSize, buttons, gap = 2, w =
                     }}
                 >
                     {buttons[index] 
-                        ? <Button variant={btnVariant} onClick={buttons[index].onPressed} sx={{ height: h, padding: `auto ${w}` }}>{buttons[index].name}</Button> 
-                        : <Button variant={btnVariant} disabled={true} sx={{ height: h, padding: `auto ${w}` }}>n/a</Button>}
+                        ? <Button variant={btnVariant} color={colorTheme} onClick={buttons[index].onPressed} sx={{ fontSize: "20px", height: h, padding: `auto ${w}` }}>{buttons[index].name}</Button> 
+                        : <Button variant={btnVariant} color={colorTheme} disabled={true} sx={{ fontSize: "20px", height: h, padding: `auto ${w}` }}>n/a</Button>}
                 </Grid2>
             ))}
         </Grid2>
