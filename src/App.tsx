@@ -1,16 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.scss';
 import DrumBackground from './component/drumBg.tsx';
 import { Grid2, Link, Typography } from '@mui/material';
 import ButtonGrid from './component/buttonsGrid.tsx';
 import SoundController from './component/soundController.tsx';
-import TYPE_OF_BUTTONS from './component/TYPE_OF_BUTTONS.ts';
+import TYPE_OF_BUTTONS_1 from './component/TYPE_OF_BUTTONS_1.ts';
+import TYPE_OF_BUTTONS_2 from './component/TYPE_OF_BUTTONS_2.ts';
 
 function App() {
   const [powerOn, setPowerOn] = useState<boolean>(false);
   const [displayText, setDisplayText] = useState<string>("");
   const [volume, setVolume] = useState<number>(50);
   const [changeTheme, setChangeTheme] = useState<boolean>(false);
+  const [key, setKey] = useState<string | undefined>();
+  const [buttons, setButtons] = useState(() => 
+    TYPE_OF_BUTTONS_1.map(button => ({
+      name: button.name,
+      trigger: button.trigger,
+      audioURL: button.audioURL,
+      display: button.display,
+      triggerByKey: false,
+      onPressed: () => {},
+    }))
+  );
 
   const handlePowerChange = (newValue: boolean) => {
     setPowerOn(newValue);
@@ -26,31 +38,83 @@ function App() {
 
   const handleThemeChange = (newValue: boolean) => {
     setChangeTheme(newValue);
+    setButtons(() => 
+      TYPE_OF_BUTTONS_2.map(button => ({
+        name: button.name,
+        trigger: button.trigger,
+        audioURL: button.audioURL,
+        display: button.display,
+        triggerByKey: false,
+        onPressed: () => {},
+      }))
+    )
   };
 
+  const powerOnRef = useRef(powerOn);
   useEffect(() => {
     handleDisplayChange(`Power: ${powerOn ? "ON" : "OFF"}`);
-  }, [powerOn])
+    powerOnRef.current = powerOn;
+  }, [powerOn]);
 
-  // test components
-  const playAudio = (audioURL: string, volume: number = 0.5): void => {
-    let aud = new Audio(audioURL);
-    aud.volume = volume / 100;
-    aud.play();
-  }
-  
-  const buttons: { name: string; onPressed: () => void }[] = [];
-  TYPE_OF_BUTTONS.forEach(button => {
-    buttons.push({
-        name: button.name,
+  const volumeRef = useRef(volume);
+  useEffect(() => {
+    volumeRef.current = volume;
+  }, [volume]);
+
+  useEffect(() => {
+    setButtons(prevButtons => 
+      prevButtons.map(button => ({
+        ...button,
         onPressed: () => {
           if (powerOn) {
             playAudio(button.audioURL, volume);
             handleDisplayChange(button.display);
           }
         },
-    });
-  });
+      }))
+    )
+  }, [powerOn, volume]);
+
+  const playAudio = (audioURL: string, volume: number = 0.5): void => {
+    let aud = new Audio(audioURL);
+    aud.volume = volume / 100;
+    aud.play();
+  }
+
+  const handleKeyDown = (event: KeyboardEvent): void => {
+    setKey(event.key);
+    const buttonPressed = buttons.find((button) => button.trigger.toLowerCase() === event.key.toLowerCase());
+
+    if (buttonPressed && powerOnRef.current) {
+        playAudio(buttonPressed.audioURL, volumeRef.current);
+        handleDisplayChange(buttonPressed.display);
+        setButtons(prevButtons => 
+          prevButtons.map(button => 
+            button.trigger === buttonPressed.trigger
+              ? { ...button, triggerByKey: true }
+              : button
+          )
+        );
+
+        // Use disable to mimic key press animation
+        setTimeout(() => {
+          setButtons(prevButtons =>
+            prevButtons.map(button =>
+              button.trigger === buttonPressed.trigger
+                ? { ...button, triggerByKey: false}
+                : button
+            )
+          )
+        }, 100);
+      }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [buttons]);
 
   return (
     <div className="App">

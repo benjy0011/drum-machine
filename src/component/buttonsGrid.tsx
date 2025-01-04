@@ -1,8 +1,9 @@
 import { Button, Grid2 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 interface Button {
     name: string;
+    triggerByKey: boolean;
     onPressed: () => void;
 }
 
@@ -46,7 +47,7 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ gridSize, buttons, gap = 2, w =
                     }}
                 >
                     {buttons[index] 
-                        ? <Button variant={btnVariant} color={colorTheme} onClick={buttons[index].onPressed} sx={{ fontSize: "20px", height: h, padding: `auto ${w}` }}>{buttons[index].name}</Button> 
+                        ? <Button variant={btnVariant} color={colorTheme} disabled={buttons[index].triggerByKey || false} onClick={buttons[index].onPressed} sx={{ fontSize: "20px", height: h, padding: `auto ${w}` }}>{buttons[index].name}</Button> 
                         : <Button variant={btnVariant} color={colorTheme} disabled={true} sx={{ fontSize: "20px", height: h, padding: `auto ${w}` }}>n/a</Button>}
                 </Grid2>
             ))}
