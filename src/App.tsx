@@ -37,21 +37,6 @@ function App() {
 
   const handleThemeChange = (newValue: boolean) => {
     setChangeTheme(newValue);
-    setButtons(() => 
-      TYPE_OF_BUTTONS_2.map(button => ({
-        name: button.name,
-        trigger: button.trigger,
-        audioURL: button.audioURL,
-        display: button.display,
-        triggerByKey: false,
-        onPressed: () => {
-          if (powerOn) {
-            playAudio(button.audioURL, volume);
-            handleDisplayChange(button.display);
-          }
-        },
-      }))
-    )
   };
 
   const powerOnRef = useRef(powerOn);
@@ -78,6 +63,26 @@ function App() {
       }))
     )
   }, [powerOn, volume]);
+
+  useEffect(() => {
+    const BUTTONS = changeTheme ? TYPE_OF_BUTTONS_2 : TYPE_OF_BUTTONS_1;
+
+    setButtons(
+      BUTTONS.map(button => ({
+        name: button.name,
+        trigger: button.trigger,
+        audioURL: button.audioURL,
+        display: button.display,
+        triggerByKey: false,
+        onPressed: () => {
+          if (powerOn) {
+            playAudio(button.audioURL, volume);
+            handleDisplayChange(button.display);
+          }
+        },
+      }))
+    );
+  }, [changeTheme, powerOn, volume]);
 
   const playAudio = (audioURL: string, volume: number = 0.5): void => {
     const aud = new Audio(audioURL);
