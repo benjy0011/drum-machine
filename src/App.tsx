@@ -44,7 +44,12 @@ function App() {
         audioURL: button.audioURL,
         display: button.display,
         triggerByKey: false,
-        onPressed: () => {},
+        onPressed: () => {
+          if (powerOn) {
+            playAudio(button.audioURL, volume);
+            handleDisplayChange(button.display);
+          }
+        },
       }))
     )
   };
